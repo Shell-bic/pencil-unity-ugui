@@ -1,0 +1,16 @@
+screen: Screen_Name
+routes:
+  - source: Btn_Back
+    target: Screen_Home
+    interaction: click
+    hit_area: separate
+    notes: ""
+  - source: Card_Primary
+    target: Screen_Detail
+    interaction: click
+    hit_area: visual
+    notes: ""
+states:
+  default_screen: Screen_Name
+  modal_stack: false
+  allow_back: true

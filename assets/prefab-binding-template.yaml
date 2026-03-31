@@ -1,0 +1,23 @@
+screen: Screen_Name
+prefabs:
+  - name: Card_Primary
+    scope: reusable
+    owner: screen
+    notes: ""
+  - name: Panel_Content
+    scope: local
+    owner: screen
+    notes: ""
+scripts:
+  - name: UIScreenController
+    responsibility: screen-state
+    target: Screen_Name
+  - name: UIRouter
+    responsibility: route-resolution
+    target: global
+bindings:
+  - source: Btn_Back
+    route_owner: UIRouter
+    screen_owner: UIScreenController
+    target: Screen_Home
+    notes: ""

@@ -1,0 +1,17 @@
+screen: Screen_Name
+content:
+  - key: title
+    target: Txt_Title
+    mode: static
+    owner: scene
+    notes: ""
+  - key: hero_image
+    target: Img_Hero
+    mode: runtime
+    owner: UIScreenController
+    notes: ""
+localization:
+  enabled: false
+  keys: []
+media:
+  replaceable: []

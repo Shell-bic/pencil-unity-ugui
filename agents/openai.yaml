@@ -1,0 +1,8 @@
+interface:
+  display_name: "Pencil Unity uGUI"
+  short_description: "Translate Pencil designs into Unity uGUI plans or implementations with anchor, slicing, and navigation rules."
+  brand_color: "#2563EB"
+  default_prompt: "Use $pencil-unity-ugui to translate a Pencil design or structured layout spec into a Unity uGUI plan or implementation with correct anchors, sliced sprites, hierarchy, and navigation."
+
+policy:
+  allow_implicit_invocation: true
