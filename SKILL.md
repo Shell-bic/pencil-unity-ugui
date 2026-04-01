@@ -1,6 +1,6 @@
 ---
 name: pencil-unity-ugui
-description: Systematic UI-to-engineering conversion using Pencil MCP. Translates designs into Unity uGUI architectures based on rigorous structural reasoning first, rather than applying default templates.
+description: Systematic UI-to-engineering conversion: infer UI system structure first, then convert it into Unity engineering form.
 metadata:
   short-description: Systematic UI-to-engineering conversion for Unity uGUI based on reasoning-first methodology.
 ---
@@ -8,20 +8,14 @@ metadata:
 # Pencil Unity uGUI
 
 > [!CAUTION]
-> **CRITICAL RESTRICTIONS (核心限制):**
-> 1. **禁止跳过全局结构分析直接进入 hierarchy / asset / anchor。** (Do not skip global structural analysis to jump straight into hierarchy, assets, or anchors.)
-> 2. **禁止默认把界面当成 page-routing 或 shell-screen 系统。** (Do not default to assuming the interface is a page-routing or shell-screen system.)
-> 3. **禁止因为已有模板存在，就在未推导结构前直接套 Screen_* / UIRouter / UIScreenController。** (Do not blindly apply pre-existing screen or router templates before deducing the actual required structure.)
+> **CRITICAL MISSIONS (核心使命与限制):**
+> 1. **该 skill 不是把设计稿直接翻译成 screen/page。它要求 agent 先推导 UI 系统结构，再决定采用何种 Unity 工程组织形式！** (This skill is NOT for translating designs directly into screens/pages. It requires inferring the UI structure first, then deciding the Unity format.)
+> 2. **禁止跳过全局结构分析直接进入 hierarchy / asset / anchor。** (Do not skip global structural analysis to jump straight into hierarchy, assets, or anchors.)
+> 3. **禁止默认把界面当成 page-routing 或 shell-screen 系统。** (Do not default to assuming the interface is a page-routing or shell-screen system.)
+> 4. **禁止因为已有模板存在，就在未推导结构前直接套 Screen_* / UIRouter / UIScreenController。** (Do not blindly apply pre-existing screen or router templates before deducing the actual required structure.)
 
 This is a `design-translation` and `system-reasoning` skill, not a generic uGUI authoring skill.
-
 If the user only wants to hand-build `Canvas/Button/Text/Image` without a Pencil angle, prefer general Unity UI skills instead.
-
-Use this skill when the target output is `Unity uGUI`, and the source of truth is:
-- a `Pencil MCP` design
-- a screenshot/layout spec that requires structural reasoning
-
-This skill exists to keep later agents from mixing `uGUI`, `UI Toolkit`, browser layout mental models, and generic scene building.
 
 ## Non-goals
 Treat these as exclusions unless requested:
@@ -36,26 +30,32 @@ Use `Unity Skills` for creating structures, anchors, layout groups, and hooking 
 
 ## Workflow Pipeline (Reasoning First)
 
-1. **Target Confirmation**: Verify the target is uGUI and the goal (planning vs execution).
-2. **Global Document Scanning**: Use Pencil to scan the whole file. Identify all artboards/frames.
-3. **Global Semantic Analysis & Structural Reasoning**: (CRITICAL STEP)
-   - What is the fundamental architecture? Is it a continuous workflow, a single-screen state machine, a HUD overlay, or actually a multi-page routed app? Do not assume page-routing.
-4. **Region Role Inference**: Map the semantic roles of the regions before assigning Unity hierarchy types.
-5. **Interaction Model Inference**: Determine if interactions trigger state swaps, overlays, external system events, or actual scene/page routing.
-6. **Classification**: Classify nodes based on the verified structural intent.
-7. **Layout & Parent Strategy**.
-8. **Anchor & Asset Strategy**.
-9. **Component & Prefab Bounds**.
-10. **Output Planning**: Present the reasoning and plans using [references/output-contract.md](references/output-contract.md).
+1. **Global System Analysis**: Scan the whole document. Confirm the fundamental architecture. Do not assume page-routing.
+2. **Engineering Architecture Planning**: Decide whether to use pages / panels / overlays / flow / mixed structure.
+3. **Reusable Component & Interaction Extraction**: Identify logical boundaries. Do not directly reuse visual elements before confirming interaction roles.
+4. **Layout / Asset Placement Planning**: Decide anchors, simple vs sliced assets, and hierarchy grouping.
+5. **Implementation**: Only after all reasoning is confirmed.
 
 ## Files to read when needed
-- Implementation rules: `unity-skills` and `unity-ui`
-- Anchor selection: [references/anchor-rules.md](references/anchor-rules.md)
-- Asset slicing: [references/asset-rules.md](references/asset-rules.md)
-- Component selection: [references/component-rules.md](references/component-rules.md) (Note: treat as guidelines, not forced types)
-- Prefab/Script boundaries: [references/prefab-binding-rules.md](references/prefab-binding-rules.md)
-- Output contract: [references/output-contract.md](references/output-contract.md)
-- Workflow checklist: [references/workflow-checklist.md](references/workflow-checklist.md)
-- Anti-patterns: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Core Method
+- For the end-to-end execution checklist: [references/core-method/workflow-checklist.md](references/core-method/workflow-checklist.md)
+- For the required reasoning-first answer shape: [references/core-method/output-contract.md](references/core-method/output-contract.md)
+
+### Implementation Rules
+- For anchor selection and RectTransform strategy: [references/implementation-rules/anchor-rules.md](references/implementation-rules/anchor-rules.md)
+- For slicing and text-vs-image decisions: [references/implementation-rules/asset-rules.md](references/implementation-rules/asset-rules.md)
+- For Unity component mapping (guidelines only): [references/implementation-rules/component-rules.md](references/implementation-rules/component-rules.md)
+- For structural layout conversion logic: [references/implementation-rules/layout-conversion-rules.md](references/implementation-rules/layout-conversion-rules.md)
+- For prefab boundaries and controller ownership: [references/implementation-rules/prefab-binding-rules.md](references/implementation-rules/prefab-binding-rules.md)
+- For naming conventions (ensure they match the inferred structure): [references/implementation-rules/naming-rules.md](references/implementation-rules/naming-rules.md)
+- For content assignment and runtime binding strategy: [references/implementation-rules/data-binding-rules.md](references/implementation-rules/data-binding-rules.md)
+- For visual styling elements: [references/implementation-rules/typography-visual-rules.md](references/implementation-rules/typography-visual-rules.md)
+- For known bad patterns and false equivalences: [references/implementation-rules/anti-patterns.md](references/implementation-rules/anti-patterns.md)
+
+### Templates & Examples
+- Use `assets/engineering-plan-template.md` as the primary structural planner.
+- Use `assets/routing-structure-template.yaml` ONLY if a true routed system was inferred.
+- Review `examples/` for exhibition-specific shell patterns and trigger calibrations.
 
 If code or Unity mutation is requested, do not stop at explanation. Produce the hierarchy, scripts, or editor actions that are actually needed based on your structural reasoning.
