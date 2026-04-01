@@ -1,133 +1,34 @@
 # Output Contract
 
-Unless the user asks for something narrower, answer in this order.
+Unless the user asks for a specific abbreviated output, your response must follow this structured order to guarantee reasoning precedes hierarchy placement.
 
-## 1. FitAssessment
+## 1. FitAssessment & System Summary
+A short paragraph capturing the target constraints and visual scope.
 
-One short paragraph stating:
+## 2. GlobalStructureSummary (CRITICAL)
+Explain your deduction of the overall system architecture. 
+Must explicitly state whether this is a state-driven single view, a multi-step flow, a routed multi-page system, or an overlay HUD. Defend your reasoning using visual evidence from the design.
 
-- whether `uGUI` is a good fit
-- whether the design looks fixed-screen or adaptive
-- whether direct Unity mutation is appropriate for this request
+## 3. RegionRoleMap
+Break down the top-level areas by their semantic purpose in the application. Do not use Unity object names here.
+Example: "Navigation Matrix", "Hardware Control Panel", "Data Detail Flyout".
 
-## 2. HierarchyPlan
+## 4. InteractionModelInference
+Describe how user inputs affect the state of the application. Does clicking a button swap a local panel, push a new route history state, or trigger a global event? Define what kind of controller is logically required to manage this.
 
-List the intended tree compactly, for example:
+## 5. HierarchyPlan
+Only after the above reasoning should you list the intended Unity tree structure.
+Ensure prefixes (`Group_`, `State_`, `Panel_`, `Flow_`, `Screen_`) align with your deduced structure, rather than defaulting to `Screen_` for everything.
 
-- `Canvas_Main`
-- `Screen_Home`
-- `Region_Top`
-- `Region_LeftNav`
-- `Region_Content`
-- `Card_Opportunity`
-- `Txt_Title`
-- `Btn_Opportunity`
+## 6. AnchorPlan
+For major structural parents, list their anchor intent and stretch logic. Keep concise.
 
-## 3. AnchorPlan
+## 7. AssetPlan
+State which nodes demand `simple-sprite`, `sliced-sprite`, or `hit-area` mappings.
 
-For important nodes, state:
+## 8. Component & PrefabBinding Plan
+For important nodes, state the Unity component stack and prefab boundaries.
+Define where the behavior logic resides (e.g., an Inferred Controller, a State Machine script, or a specific Flow Director) based on Stage 4. 
 
-- parent
-- anchor preset
-- fixed or stretch intent
-
-Keep this concise. Focus on nodes whose structural placement matters.
-
-## 4. AssetPlan
-
-State which important visuals should become:
-
-- `simple-sprite`
-- `sliced-sprite`
-- `text`
-- `hit-area`
-
-## 5. ComponentPlan
-
-For important nodes, state the intended Unity component stack, for example:
-
-- `Screen_Home` -> `RectTransform`, optional `CanvasGroup`
-- `Panel_Content` -> `RectTransform`, `Image`
-- `Btn_Back` -> `RectTransform`, `Image`, `Button`
-
-Focus on nodes whose component choice affects maintainability or behavior.
-
-## 6. TypographyPlan
-
-For important text roles, state:
-
-- tier name
-- where the style should come from
-- any justified effect components
-
-Keep this compact. Focus on repeated text roles or visually sensitive nodes.
-
-## 7. NavigationPlan
-
-List clickable nodes and their intended targets.
-
-For planning tasks, this is usually enough:
-
-- source
-- target
-- notes about enlarged hit areas if needed
-
-## 8. PrefabBindingPlan
-
-State:
-
-- what should become a prefab
-- what should stay local to the screen
-- where route intent and screen behavior should live
-
-## 9. NamingPlan
-
-State the naming convention for:
-
-- hierarchy nodes
-- prefabs
-- scripts
-- route ids
-- content keys
-
-## 10. DataBindingPlan
-
-State:
-
-- which content is static
-- which content is runtime-driven
-- who owns updates
-- any localization or media replacement expectations
-
-## 11. ImplementationNotes
-
-State:
-
-- what should be created with `Unity Skills`
-- what should be inspected with `Pencil MCP`
-- what must remain manual or be verified by screenshot
-
-## 12. ValidationNotes
-
-Check these points explicitly:
-
-- anchor logic
-- region grouping
-- component selection
-- typography consistency
-- prefab and binding boundaries
-- naming consistency
-- data-binding strategy
-- sliced sprite usage
-- text vs image decisions
-- navigation completeness
-- screenshot parity assumptions
-
-## Optional sections
-
-Add only when helpful:
-
-- `Risks`
-- `ReusePlan`
-- `MigrationNotes`
-- `WhyNotUIToolkit`
+## 9. Implementation & Validation Notes
+Notes on what should be mutated via Unity Skills vs manual tuning, and a checklist verifying the anchor choices and binding strategies.

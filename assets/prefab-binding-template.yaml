@@ -1,23 +1,22 @@
-screen: Screen_Name
-prefabs:
-  - name: Card_Primary
-    scope: reusable
-    owner: screen
-    notes: ""
-  - name: Panel_Content
-    scope: local
-    owner: screen
-    notes: ""
-scripts:
-  - name: UIScreenController
-    responsibility: screen-state
-    target: Screen_Name
-  - name: UIRouter
-    responsibility: route-resolution
-    target: global
-bindings:
-  - source: Btn_Back
-    route_owner: UIRouter
-    screen_owner: UIScreenController
-    target: Screen_Home
-    notes: ""
+# Prefab Binding Template
+# Represents the mapping between visual hierarchies, prefabs, and their controlling scripts based on inferred system roles.
+
+binding_plan:
+  # Examples of Prefabs to extract
+  prefabs:
+    - name: "Panel_ReusableCard"
+      scope: "global"
+      description: "A standard layout card used across multiple contexts."
+    
+  # Examples of inferred controllers (Do not strictly default to UIScreenController)
+  controllers:
+    - name: "inferred_controller_name" # e.g., StateGroupController, SelectionManager, OverlayDirector
+      target_hierarchy: "Group_TargetStructure"
+      responsibility: "Manage localized state swapping for the filter sidebar."
+
+  # How the UI invokes these controllers
+  event_bindings:
+    - source_node: "Btn_Action"
+      event_type: "onClick"
+      target_controller: "inferred_controller_name"
+      action_intent: "ToggleFilter"

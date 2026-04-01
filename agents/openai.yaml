@@ -1,8 +1,9 @@
 interface:
-  display_name: "Pencil Unity uGUI"
-  short_description: "Translate Pencil designs into Unity uGUI plans or implementations with anchor, slicing, and navigation rules."
+  display_name: "Pencil System Architecture & uGUI"
+  short_description: "Systematic UI-to-engineering conversion: reason about design structures first, then translate into Unity uGUI architectures."
   brand_color: "#2563EB"
-  default_prompt: "Use $pencil-unity-ugui to translate a Pencil design or structured layout spec into a Unity uGUI plan or implementation with correct anchors, sliced sprites, hierarchy, and navigation."
+  default_prompt: "Use $pencil-unity-ugui to perform systematic UI-to-engineering conversion. Analyze the global structure and semantic intent first, then generate the corresponding Unity uGUI plan or implementation."
 
 policy:
-  allow_implicit_invocation: true
+  # Changed from true to explicit keywords to prevent accidental narrow track lock-in
+  allow_implicit_invocation: false

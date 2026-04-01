@@ -1,16 +1,19 @@
-screen: Screen_Name
-routes:
-  - source: Btn_Back
-    target: Screen_Home
-    interaction: click
-    hit_area: separate
-    notes: ""
-  - source: Card_Primary
-    target: Screen_Detail
-    interaction: click
-    hit_area: visual
-    notes: ""
-states:
-  default_screen: Screen_Name
-  modal_stack: false
-  allow_back: true
+# Route Map Template
+# NOTE: Use this map ONLY when the Global Structural Reasoning confirms the design is genuinely a multi-screen routed application. Do NOT apply this template to single-view state-driven apps or monolithic overlays.
+
+route_map:
+  # The overall context holding these routes (e.g. NavigationRouter, MainAppFlow)
+  context: "inferred_router_context"
+
+  # The explicit routes deduced from the design interactables
+  paths:
+    - source_trigger: "Btn_Confirm"
+      target_destination: "State_SuccessPanel"
+      transition_intent: "overlay_push" # e.g. push, replace, replace_root
+
+    - source_trigger: "Hit_Nav_Settings"
+      target_destination: "Panel_Settings"
+      transition_intent: "replace_content" 
+
+  # The initial state when the system boots (if applicable)
+  initial_state: "inferred_home_state"

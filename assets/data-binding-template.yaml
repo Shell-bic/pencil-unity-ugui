@@ -1,17 +1,18 @@
-screen: Screen_Name
-content:
-  - key: title
-    target: Txt_Title
-    mode: static
-    owner: scene
-    notes: ""
-  - key: hero_image
-    target: Img_Hero
-    mode: runtime
-    owner: UIScreenController
-    notes: ""
-localization:
-  enabled: false
-  keys: []
-media:
-  replaceable: []
+# Data Binding Template
+# Details how static or runtime dynamic content gets assigned into the visual nodes
+
+data_bindings:
+  # Define who coordinates the data assignment. Avoid defaulting to UIScreenController.
+  data_owners:
+    - owner: "inferred_controller_name"
+      responsibility: "Populates the list of available targets when the selection flow begins."
+
+  # The actual mapping of logical data to UI visuals
+  mappings:
+    - node_target: "Txt_Title"
+      data_source: "static_localization_key"
+      update_trigger: "on_enable"
+
+    - node_target: "Img_Avatar"
+      data_source: "runtime_user_profile"
+      update_trigger: "on_data_refresh"

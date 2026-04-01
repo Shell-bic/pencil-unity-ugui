@@ -1,108 +1,40 @@
 # Prefab and Binding Rules
 
-Use this file when deciding how a Pencil-translated uGUI screen should be decomposed into prefabs, controllers, and route-binding responsibilities.
+Use this file when deciding how a screen or hierarchy should be decomposed into prefabs and controllers. 
+**Crucially, do not default to `UIRouter` or `UIScreenController` unless the system has been explicitly identified as a multi-screen routed application.**
 
 ## Contents
-
 - Principle
 - Prefab boundaries
 - Script boundaries
-- Route binding boundaries
-- Recommended runtime roles
+- Inferred Runtime Roles
 - Anti-patterns
-- Agent checklist
 
 ## Principle
-
-Do not leave the produced screen as one flat hierarchy with behavior scattered across buttons.
-
-The final result should separate:
-
-- reusable visuals
-- screen structure
-- runtime behavior
-- route intent
+Separate reusable visuals, structural hierarchy, and runtime behavior. However, the exact boundaries must emerge from the specific design's interaction model, not a one-size-fits-all template.
 
 ## Prefab boundaries
-
-Good prefab candidates:
-
-- repeated cards
-- pills
-- common panels
-- shared nav items
-- modal shells
-
-Keep local to the screen when:
-
-- the structure is one-off
-- the node is tightly tied to a single screen composition
-- extracting it would make the hierarchy harder to read
-
-Rules:
-
-- extract when reuse is likely or repetition already exists
-- do not prefab every tiny node
-- do not leave obviously repeated blocks duplicated by hand
+Extract as prefabs when:
+- Visual clustering is repeated (e.g., identical cards, standardized buttons).
+- A monolithic overlay is needed globally (e.g., a universal confirmation modal).
+Keep local when:
+- The structure is highly unique to the current contextual flow.
 
 ## Script boundaries
+Scripts should own state machines, data assignment, and interaction triggers.
+Avoid writing scripts that perform ad hoc, hardcoded layout compensations—use RectTransforms and Anchors instead.
 
-Scripts should primarily own:
+## Inferred Runtime Roles
+Instead of forcing a `UIScreenController`, deduce the actual controller category needed:
 
-- state changes
-- route requests
-- data assignment
-- show/hide logic
+- **StateGroupController**: For single-view applications swapping localized states (e.g., changing tabs or expanding filters).
+- **FlowDirector**: For multi-step sequences where A goes to B goes to C (e.g., an onboarding wizard).
+- **OverlayManager**: For global HUDs and interruptive popups.
+- **RouteResolver / PageController**: ONLY when a true multi-page architectural context exists.
 
-Scripts should not primarily own:
-
-- hardcoded design geometry for every child
-- ad hoc layout compensation
-- per-button business logic scattered across unrelated objects
-
-## Route binding boundaries
-
-Route binding should be explicit and centralized.
-
-Prefer:
-
-- a route id or target field on the clickable node
-- a router/controller that resolves transitions
-
-Avoid:
-
-- burying navigation logic only inside inspector click lists
-- duplicating page transition logic across many button objects
-
-## Recommended runtime roles
-
-Typical split:
-
-- `Screen_*` root
-  - screen-level visibility and lifecycle
-- reusable `Panel_*` or `Card_*` prefabs
-  - visual structure only, plus minimal local state if justified
-- `UIRouter`
-  - cross-screen navigation
-- `UIScreenController`
-  - per-screen setup and internal toggles
-- route-bearing click nodes
-  - emit route intent, do not own transition policy
-
-These names are conventions, not hard requirements, but later agents should preserve the role separation.
+These neutral names encourage you to think about what the script *does*, rather than defaulting to "Screen" logic.
 
 ## Anti-patterns
-
-- Do not make every node a prefab.
-- Do not hardcode all navigation logic separately on each `Button`.
-- Do not let screen controllers become giant layout registries.
-- Do not duplicate the same card or nav item hierarchy across screens when a prefab would clearly help.
-
-## Agent checklist
-
-Before finalizing structure, ask:
-
-- Which nodes are genuinely reusable?
-- Which behavior belongs at screen scope versus element scope?
-- Where should route intent live?
-- Would this hierarchy still be understandable after three more screens are added?
+- **The Router Bias**: Do not assume every button changes the entire screen. Many buttons just mutate local panel data.
+- **The Central Monolith**: Do not let a single controller become a giant registry for 50 child components if the UI clearly consists of distinct, autonomous widget panels.
+- Do not make every visual node a prefab just for the sake of it.

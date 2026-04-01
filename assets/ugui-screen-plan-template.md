@@ -1,93 +1,49 @@
-# uGUI Screen Plan Template
+# uGUI Structural Plan Template
 
-## FitAssessment
+Use this format when outputting a plan. Replace brackets with deduced values based on the initial system reasoning.
 
-- screen type:
-- is uGUI a good fit:
-- planning only or implementation:
+## Fit Assessment
+[Brief summary of whether uGUI is appropriate and any major constraints discovered]
 
-## ScreenSummary
+## Global Structure Summary
+[CRITICAL: Describe the foundational architecture deduced from the design. Is it a state machine, an overlay HUD, a linear workflow, or a routed multi-page app? Do not assume page-routing.]
 
-- screen name:
-- design source:
-- primary interaction model:
+## Region Role Map
+[Map the top-level semantic areas without assuming Unity hierarchy types yet]
+- [Semantic Area 1]: [Role/Purpose]
+- [Semantic Area 2]: [Role/Purpose]
 
-## HierarchyPlan
+## Interaction Model Inference
+[How do inputs change the system? Do they toggle local filters, swap states, or trigger full router navigation?]
 
-- `Canvas_Main`
-- `Screen_<Name>`
-- `Region_Top`
-- `Region_Left`
-- `Region_Content`
+## Hierarchy Plan
+[Design the Unity tree based on the deduced architecture. Use neutral prefixes like Group_, State_, Flow_, Panel_ unless Screen_ is specifically justified.]
 
-## AnchorPlan
+- `[Root_Node]` (e.g., Canvas_Main or WorldCanvas_Target)
+  - `[Inferred_Structural_Node_1]`
+    - `[Child_Panel]`
+    - `[Text/Image]`
+  - `[Inferred_Structural_Node_2]`
 
-| Node | Parent | Anchor | Fixed/Stretch | Notes |
-|------|--------|--------|---------------|-------|
-| `Screen_<Name>` | `Canvas_Main` | `StretchAll` | Stretch | |
+## Anchor Plan
+- `[Important Node A]`: Parent = `[Parent]`, Anchor = `[Preset]`, Intent = `[Fixed/Stretch]`
+- `[Important Node B]`: Parent = `[Parent]`, Anchor = `[Preset]`, Intent = `[Fixed/Stretch]`
 
-## AssetPlan
+## Asset Plan
+- `[Visual Node 1]`: [simple-sprite / sliced-sprite / text / hit-area]
 
-| Node | Type | Unity Target | Reusable | Notes |
-|------|------|--------------|----------|-------|
-| `Bg_Full` | `simple-sprite` | `Image` | No | |
+## Component & Prefab Binding Plan
+- `[Structural Group Node]`: `RectTransform`, `[CanvasGroup?]`
+  - Controller Intent: `[Inferred Controller Role, e.g. StateGroupController, FlowDirector]`
+- `[Interactive Node]`: `RectTransform`, `[Button]`
 
-## ComponentPlan
+## Navigation & Intent Plan
+[Only include if interactions explicitly drive structural jumps]
+- [Source Node] -> [Inferred Route Target or State Mutation]
 
-| Node | Components | Notes |
-|------|------------|-------|
-| `Screen_<Name>` | `RectTransform`, `CanvasGroup` (optional) | |
-| `Panel_Content` | `RectTransform`, `Image` | |
-| `Btn_Back` | `RectTransform`, `Image`, `Button` | |
-
-## TypographyPlan
-
-| Role | Tier | Source | Effects | Notes |
-|------|------|--------|---------|-------|
-| `Txt_Title` | `Title` | `Text` settings | none | |
-
-## NavigationPlan
-
-| Source | Target | Click Layer | Notes |
-|--------|--------|-------------|-------|
-| `Btn_Back` | `Screen_Home` | `Btn_Back` | |
-
-## PrefabBindingPlan
-
-| Cluster | Prefab? | Script Owner | Route Owner | Notes |
-|---------|---------|--------------|-------------|-------|
-| `Panel_Content` | No | `UIScreenController` | n/a | |
-| `Btn_Back` | No | `UIScreenController` | `UIRouter` | |
-
-## NamingPlan
-
-| Kind | Convention | Example |
-|------|------------|---------|
-| Hierarchy | `Screen_`, `Region_`, `Panel_`, `Btn_`, `Txt_` | `Screen_Home` |
-| Prefab | role-driven | `Card_Primary` |
-| Script | responsibility-driven | `HomeScreenController` |
-| Route | short stable id | `Home` |
-| Content Key | semantic snake_case | `title` |
-
-## DataBindingPlan
-
-| Field/Cluster | Static or Runtime | Owner | Notes |
-|---------------|-------------------|-------|-------|
-| `Txt_Title` | Static | scene/prefab | |
-| `Img_Hero` | Runtime | `UIScreenController` | |
-
-## Risks
-
-- 
-
-## ValidationChecklist
-
-- anchors match structural intent
-- sliced sprites are used where corners must be preserved
-- component stacks match node roles
-- typography roles are consistent
-- prefab and binding boundaries are intentional
-- naming is consistent and role-driven
-- binding complexity matches screen needs
-- click targets are usable
-- hierarchy is grouped by region
+## Validation Checklist
+- [ ] Structural deduction is explicitly answered (HUD vs Flow vs Page routed)
+- [ ] Hierarchy perfectly reflects the semantic structural deduction
+- [ ] Anchor intent verifies structural dependencies
+- [ ] Asset plan balances simple vs sliced sprites
+- [ ] Prefab boundaries and inferred controllers are explicitly listed

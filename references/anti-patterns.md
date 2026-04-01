@@ -1,92 +1,17 @@
-# Anti-patterns
+# Anti-Patterns
 
-Read this file when the task is ambiguous or when prior attempts mixed incompatible UI models.
+Use this file when reviewing a proposed uGUI plan. If the plan matches these anti-patterns, redo it.
 
-## Common confusions
+## CRITICAL METHODOLOGY ANTI-PATTERNS
 
-- `RectTransform` is not browser `Flexbox`
-- `uGUI` is not `UI Toolkit`
-- a design grouping is not automatically a `LayoutGroup`
-- a beautiful flat export is not automatically a good interactive UI asset
+- **Skipping Structural Inference**: Do NOT start creating `Screen_` or assigning anchors without explicit reasoning about the global system architecture first.
+- **Visual Similarity = Structural Equivalence**: Just because two buttons look identical does not mean they map to the same type of runtime controller. Do not map pure visual patterns directly into structural components before verifying behavior.
+- **The Router Bias**: Assuming every UI needs cross-screen routing.
 
-## Bad patterns
+## uGUI ANTI-PATTERNS
 
-### 1. Center-anchor everything
-
-Symptom:
-
-- every node uses `MiddleCenter`
-- large positive/negative coordinates compensate for bad anchoring
-
-Why it is bad:
-
-- brittle hierarchy
-- poor maintainability
-- confusing future edits
-
-### 2. Make everything a layout group
-
-Symptom:
-
-- fixed exhibition screens are rebuilt as nested horizontal/vertical groups everywhere
-
-Why it is bad:
-
-- fights the original composition
-- creates confusing rect behavior
-- increases manual overrides
-
-### 3. Flatten the hierarchy
-
-Symptom:
-
-- dozens of nodes directly under `Canvas`
-
-Why it is bad:
-
-- no structural grouping
-- anchors become harder to reason about
-- navigation and reuse suffer
-
-### 4. Stretch rounded assets as simple sprites
-
-Symptom:
-
-- pills and cards deform when resized
-
-Why it is bad:
-
-- visible corner warping
-- inconsistent border thickness
-
-### 5. Bake all text into images
-
-Symptom:
-
-- labels, titles, and data all become PNGs
-
-Why it is bad:
-
-- poor maintainability
-- no localization path
-- worse clarity at runtime
-
-### 6. Attach clicks directly to decorative art without hit-area review
-
-Symptom:
-
-- click area equals the visible pixels of a small or irregular sprite
-
-Why it is bad:
-
-- poor touch usability
-- fragile interaction targets
-
-## Recovery guidance
-
-When one of these patterns appears:
-
-- stop creating more nodes
-- re-classify the design
-- rebuild the parent strategy first
-- then reapply anchors, assets, and navigation
+- **Center-anchor everything**: Leaving all elements anchored to the center `(0.5, 0.5)` and moving them by hundreds of pixels. Elements must anchor to their logical parent edge or structural container.
+- **Everything is a LayoutGroup**: Adding a `HorizontalLayoutGroup` to a panel that only contains two fixed objects at opposite ends. Use manual anchors and fixed placement unless the content actually repeats or reflows.
+- **Flatten hierarchy**: Putting 50 images and texts directly under the root Canvas without logical grouping, making the inspector impossible to read.
+- **Bake all text into images**: Stripping out editability because a font isn't standard. Unless the font is heavily stylized pixel art, use Unity UI `Text` or `TMP`.
+- **Shrinking hit targets**: Keeping the interactive click box exactly the size of a tiny 16x16 icon instead of wrapping it in a generous 48x48 transparent hit area for touch/mouse ease.
