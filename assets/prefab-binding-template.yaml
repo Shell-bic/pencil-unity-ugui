@@ -2,21 +2,22 @@
 # Represents the mapping between visual hierarchies, prefabs, and their controlling scripts based on inferred system roles.
 
 binding_plan:
-  # Examples of Prefabs to extract
   prefabs:
-    - name: "Panel_ReusableCard"
+    - name: "Group_ReusableCard"
       scope: "global"
       description: "A standard layout card used across multiple contexts."
     
-  # Examples of inferred controllers (Do not strictly default to UIScreenController)
   controllers:
-    - name: "inferred_controller_name" # e.g., StateGroupController, SelectionManager, OverlayDirector
+    - owner_role: "inferred"
+      possible_roles: 
+        - "global_manager"
+        - "state_controller"
+        - "view_controller"
+        - "flow_controller"
+        - "overlay_controller"
       target_hierarchy: "Group_TargetStructure"
       responsibility: "Manage localized state swapping for the filter sidebar."
 
-  # How the UI invokes these controllers
   event_bindings:
-    - source_node: "Btn_Action"
-      event_type: "onClick"
-      target_controller: "inferred_controller_name"
-      action_intent: "ToggleFilter"
+    - trigger: "Btn_Action"
+      target_behavior: "ToggleFilterState"

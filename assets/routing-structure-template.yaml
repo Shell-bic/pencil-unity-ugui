@@ -1,19 +1,13 @@
-# Route Map Template
-# NOTE: Use this map ONLY when the Global Structural Reasoning confirms the design is genuinely a multi-screen routed application. Do NOT apply this template to single-view state-driven apps or monolithic overlays.
+use_when:
+  - content switching is mutually exclusive
+  - navigation implies view replacement
 
-route_map:
-  # The overall context holding these routes (e.g. NavigationRouter, MainAppFlow)
+routing_structure:
   context: "inferred_router_context"
 
-  # The explicit routes deduced from the design interactables
   paths:
-    - source_trigger: "Btn_Confirm"
-      target_destination: "State_SuccessPanel"
-      transition_intent: "overlay_push" # e.g. push, replace, replace_root
-
-    - source_trigger: "Hit_Nav_Settings"
-      target_destination: "Panel_Settings"
-      transition_intent: "replace_content" 
-
-  # The initial state when the system boots (if applicable)
-  initial_state: "inferred_home_state"
+    - view_id: "inferred_source"
+      target_view: "inferred_destination"
+      trigger: "Btn_Action"
+      transition_type: "replace_content" 
+      persistent_regions_affected: "none"

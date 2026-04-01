@@ -8,6 +8,7 @@ A short paragraph capturing the target constraints and visual scope.
 ## 2. GlobalStructureSummary (CRITICAL)
 Explain your deduction of the overall system architecture. 
 Must explicitly state whether this is a state-driven single view, a multi-step flow, a routed multi-page system, or an overlay HUD. Defend your reasoning using visual evidence from the design.
+**MUST explicitly state:** The alternative structure rejected + the exact reason why. (e.g., "Not a routed multi-page system because no mutually exclusive view switching was observed.")
 
 ## 3. RegionRoleMap
 Break down the top-level areas by their semantic purpose in the application. Do not use Unity object names here.
@@ -18,7 +19,7 @@ Describe how user inputs affect the state of the application. Does clicking a bu
 
 ## 5. HierarchyPlan
 Only after the above reasoning should you list the intended Unity tree structure.
-Ensure prefixes (`Group_`, `State_`, `Panel_`, `Flow_`, `Screen_`) align with your deduced structure, rather than defaulting to `Screen_` for everything.
+Ensure prefixes (`Group_`, `State_`, `Panel_`, `Flow_`) align with your deduced structure.
 
 ## 6. AnchorPlan
 For major structural parents, list their anchor intent and stretch logic. Keep concise.
@@ -28,7 +29,8 @@ State which nodes demand `simple-sprite`, `sliced-sprite`, or `hit-area` mapping
 
 ## 8. Component & PrefabBinding Plan
 For important nodes, state the Unity component stack and prefab boundaries.
-Define where the behavior logic resides (e.g., an Inferred Controller, a State Machine script, or a specific Flow Director) based on Stage 4. 
+Define where the behavior logic resides (e.g., an Inferred Controller) based on Stage 4. 
 
 ## 9. Implementation & Validation Notes
-Notes on what should be mutated via Unity Skills vs manual tuning, and a checklist verifying the anchor choices and binding strategies.
+Notes on what should be mutated via Unity Skills vs manual tuning.
+Explicitly state: "Which areas or decisions still require manual human confirmation."

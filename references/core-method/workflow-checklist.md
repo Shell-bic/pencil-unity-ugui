@@ -1,60 +1,46 @@
 # Workflow Checklist
 
 Use this file to guide the systematic UI-to-engineering conversion from Pencil design to Unity uGUI.
-**CRITICAL**: Do not skip the Global Structural Reasoning stage.
+
+> **CRITICAL STAGE LOCK**: Do not proceed to hierarchy planning before:
+> - Global structure is defined
+> - Region roles are identified
+> - Interaction model is inferred
+> If hierarchy or anchors are defined before structure inference, the result is invalid.
 
 ## Contents
 - Stage 1: Confirm target
 - Stage 2: Read the design
-- Stage 3: Global Semantic Analysis & Structural Reasoning (CRITICAL)
-- Stage 4: Region Role Map Inference
-- Stage 5: Interaction Model Inference
-- Stage 6: Classify Nodes
-- Stage 7: Layout and Anchor Strategy
-- Stage 8: Asset & Typography Strategy
-- Stage 9: Component & Binding Boundaries
-- Stage 10: Hierarchy & Implementation
+- Stage 3: Global System Analysis
+- Stage 4: Engineering Architecture Planning
+- Stage 5: Reusable Component & Interaction Extraction
+- Stage 6: Layout / Asset Placement Planning
+- Stage 7: Implementation
 
 ## Stage 1: Confirm target
 Confirm the technology is `uGUI`. Confirm if the user wants purely architectural planning, or editor implementation.
 
 ## Stage 2: Read the design
-Inspect top-level frames, bounds, and repeated structures using Pencil MCP. Do not immediately assume multiple frames equals multiple screens. They could be state panels, overlays, or reference boards.
+Inspect top-level frames, bounds, and repeated structures using Pencil MCP. 
 
-## Stage 3: Global Semantic Analysis & Structural Reasoning (CRITICAL)
+## Stage 3: Global System Analysis
 Before deciding on any hierarchy or code structure, you MUST deduce the systemic nature of the design.
 Questions to ask:
 - Is this a single-view state machine?
 - Is this a multi-step continuous workflow wizard?
 - Is this a HUD overlay over 3D content?
 - Is this a true routed multi-page application?
-Do NOT default to "shell-screen" or "page-routing" architecture unless the design explicitly justifies it.
 
-## Stage 4: Region Role Map Inference
+## Stage 4: Engineering Architecture Planning
+Based on the Global System Analysis, determine the structural patterns used. Do not assume "shell-screen". Exhibit why certain regions are persistent or switched.
+
+## Stage 5: Reusable Component & Interaction Extraction
 Map the structural regions not by their Unity component types, but by their semantic roles.
-Examples: "Global Status Indicator", "Contextual Action Bar", "Data Visualization Area".
-Do NOT prematurely name them `Shell_LeftNav` or `Shell_Header` unless the system reasoning warrants a shell pattern.
+Identify interactive components and flow directors. 
+**PROHIBITION**: In completing Component Extraction, do not directly map identical visual elements to the same runtime controllers until interaction roles are proven identical.
 
-## Stage 5: Interaction Model Inference
-Based on the visual clues, what do the interactions drive?
-- Simple local UI state toggles (e.g., expanding a list)?
-- Global application context switches?
-- External hardware/system commands?
-Determine the level of the controller needed (e.g., StateGroupController, FlowDirector) instead of defaulting to `UIScreenController`.
+## Stage 6: Layout / Asset Placement Planning
+Now classify the nodes structurally based on the reasoning from prior stages. Determine Anchor strategy and fixed-placement vs LayoutGroup rules.
 
-## Stage 6: Classify Nodes
-Now classify the nodes structurally based on the reasoning from Stages 3-5.
-- Backgrounds, Containers, Decorators, Interactive Hotspots, Live Data text.
-
-## Stage 7: Layout and Anchor Strategy
-Choose `fixed-placement` vs `layout-group`.
-Use anchor-rules to place elements structurally before tuning raw coordinates.
-
-## Stage 8: Asset & Typography Strategy
-Determine Simple vs Sliced sprites, and text stylings.
-
-## Stage 9: Component & Binding Boundaries
-Based on the Interaction Model (Stage 5), decide where prefabs and controllers should live. Do not map everything to a central router if the system is locally state-driven.
-
-## Stage 10: Hierarchy & Implementation
-Finally, create or describe the hierarchy. Only use `Screen_`, `Region_` prefixes if they match the deduced reasoning. Avoid boilerplate forced templates.
+## Stage 7: Implementation
+Finally, create or describe the hierarchy. Avoid boilerplate forced templates.

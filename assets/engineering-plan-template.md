@@ -1,49 +1,36 @@
-# uGUI Structural Plan Template
+# Unity UI Engineering Plan
 
-Use this format when outputting a plan. Replace brackets with deduced values based on the initial system reasoning.
+## 1. System Inference
+- Structure type (inferred, not labeled)
+- Reasoning
 
-## Fit Assessment
-[Brief summary of whether uGUI is appropriate and any major constraints discovered]
+## 2. Global Structure
+- Persistent regions
+- Switched regions
+- Overlay regions
+- Global states
 
-## Global Structure Summary
-[CRITICAL: Describe the foundational architecture deduced from the design. Is it a state machine, an overlay HUD, a linear workflow, or a routed multi-page app? Do not assume page-routing.]
+## 3. Region Role Map
+- Region_A: role
+- Region_B: role
 
-## Region Role Map
-[Map the top-level semantic areas without assuming Unity hierarchy types yet]
-- [Semantic Area 1]: [Role/Purpose]
-- [Semantic Area 2]: [Role/Purpose]
+## 4. Engineering Architecture Decision
+- Why use pages / panels / overlays / flow / mixed structure?
+- Alternatives rejected and why
 
-## Interaction Model Inference
-[How do inputs change the system? Do they toggle local filters, swap states, or trigger full router navigation?]
+## 5. Reusable Components
+- Component name
+- Responsibility
+- Reuse scope
 
-## Hierarchy Plan
-[Design the Unity tree based on the deduced architecture. Use neutral prefixes like Group_, State_, Flow_, Panel_ unless Screen_ is specifically justified.]
+## 6. Layout & Asset Placement Plan
+- Parent ownership
+- Anchor strategy
+- Asset grouping
 
-- `[Root_Node]` (e.g., Canvas_Main or WorldCanvas_Target)
-  - `[Inferred_Structural_Node_1]`
-    - `[Child_Panel]`
-    - `[Text/Image]`
-  - `[Inferred_Structural_Node_2]`
+## 7. Runtime Behavior
+- Navigation / state change / popup / flow / language / media
 
-## Anchor Plan
-- `[Important Node A]`: Parent = `[Parent]`, Anchor = `[Preset]`, Intent = `[Fixed/Stretch]`
-- `[Important Node B]`: Parent = `[Parent]`, Anchor = `[Preset]`, Intent = `[Fixed/Stretch]`
-
-## Asset Plan
-- `[Visual Node 1]`: [simple-sprite / sliced-sprite / text / hit-area]
-
-## Component & Prefab Binding Plan
-- `[Structural Group Node]`: `RectTransform`, `[CanvasGroup?]`
-  - Controller Intent: `[Inferred Controller Role, e.g. StateGroupController, FlowDirector]`
-- `[Interactive Node]`: `RectTransform`, `[Button]`
-
-## Navigation & Intent Plan
-[Only include if interactions explicitly drive structural jumps]
-- [Source Node] -> [Inferred Route Target or State Mutation]
-
-## Validation Checklist
-- [ ] Structural deduction is explicitly answered (HUD vs Flow vs Page routed)
-- [ ] Hierarchy perfectly reflects the semantic structural deduction
-- [ ] Anchor intent verifies structural dependencies
-- [ ] Asset plan balances simple vs sliced sprites
-- [ ] Prefab boundaries and inferred controllers are explicitly listed
+## 8. Implementation Notes
+- What should be built first
+- What remains for manual refinement

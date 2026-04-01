@@ -9,10 +9,11 @@ metadata:
 
 > [!CAUTION]
 > **CRITICAL MISSIONS (核心使命与限制):**
-> 1. **该 skill 不是把设计稿直接翻译成 screen/page。它要求 agent 先推导 UI 系统结构，再决定采用何种 Unity 工程组织形式！** (This skill is NOT for translating designs directly into screens/pages. It requires inferring the UI structure first, then deciding the Unity format.)
-> 2. **禁止跳过全局结构分析直接进入 hierarchy / asset / anchor。** (Do not skip global structural analysis to jump straight into hierarchy, assets, or anchors.)
-> 3. **禁止默认把界面当成 page-routing 或 shell-screen 系统。** (Do not default to assuming the interface is a page-routing or shell-screen system.)
-> 4. **禁止因为已有模板存在，就在未推导结构前直接套 Screen_* / UIRouter / UIScreenController。** (Do not blindly apply pre-existing screen or router templates before deducing the actual required structure.)
+> 1. **该 skill 不是把设计稿直接翻译成 screen/page。它要求 agent 先推导 UI 系统结构，再决定采用何种 Unity 工程组织形式！**
+> 2. **禁止跳过全局结构分析直接进入 hierarchy / asset / anchor。** 
+> 3. **If structure is not explicitly inferred, the agent must NOT proceed to hierarchy planning or asset placement.**
+> 4. **禁止默认把界面当成 page-routing 或 shell-screen 系统。**
+> 5. **禁止在未推导前套用 Screen_* / UIRouter / UIScreenController 模板。**
 
 This is a `design-translation` and `system-reasoning` skill, not a generic uGUI authoring skill.
 If the user only wants to hand-build `Canvas/Button/Text/Image` without a Pencil angle, prefer general Unity UI skills instead.
