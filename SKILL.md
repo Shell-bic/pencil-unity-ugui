@@ -37,6 +37,18 @@ Use `Unity Skills` for creating structures, anchors, layout groups, and hooking 
 4. **Layout / Asset Placement Planning**: Decide anchors, simple vs sliced assets, and hierarchy grouping.
 5. **Implementation**: Only after all reasoning is confirmed.
 
+## Stage Locks (阶段锁)
+- 未完成 Global Structure Inference → 不得进入 hierarchy 或 asset placement
+- 未完成 Region Role Map → 不得决定 controller ownership
+- 未完成 Interaction Model Inference → 不得决定 route / state / overlay 方案
+
+## Failure Conditions (失败条件)
+Any of the following makes the output **invalid** and requires a redo:
+- If hierarchy is created first, then structure is reverse-engineered to justify it
+- If `Screen_*` / `UIRouter` / `UIScreenController` naming appears without a proven routed multi-page architecture
+- If visually similar elements are merged into shared components without verifying their interaction semantics are identical
+- If a "shell" is assumed without evidence that multiple views demonstrably share persistent structural regions
+
 ## Files to read when needed
 
 ### Core Method

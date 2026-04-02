@@ -25,6 +25,10 @@ Scripts should own state machines, data assignment, and interaction triggers.
 Avoid writing scripts that perform ad hoc, hardcoded layout compensations—use RectTransforms and Anchors instead.
 
 ## Inferred Runtime Roles
+
+> **Runtime roles are inferred results, not predefined defaults.**
+> The names below are examples of possible outcomes, not a menu to pick from. The actual controller role must emerge from your structural reasoning.
+
 Instead of forcing a `UIScreenController`, deduce the actual controller category needed:
 
 - **StateGroupController**: For single-view applications swapping localized states (e.g., changing tabs or expanding filters).
