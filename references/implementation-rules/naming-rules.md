@@ -19,6 +19,8 @@ Names should communicate role first and appearance second.
 
 The purpose of a name is to make the hierarchy understandable after the screen grows, not merely to mirror a design layer label.
 
+> If a name implies a runtime structure that has not been proven in Stage 1–3, that name is invalid.
+
 ## Hierarchy naming
 
 ### Universal prefixes (always available)

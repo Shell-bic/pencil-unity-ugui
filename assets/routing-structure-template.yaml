@@ -2,6 +2,11 @@ use_when:
   - content switching is mutually exclusive
   - navigation implies view replacement
 
+do_not_use_when:
+  - panels coexist in the same persistent layout
+  - switching changes local state only
+  - sequence is step-driven rather than route-driven
+
 routing_structure:
   context: "inferred_router_context"
 

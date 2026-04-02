@@ -9,6 +9,7 @@
 > If these prerequisites are not met, **do not use this checklist**. Use the general workflow-checklist.md pipeline instead.
 >
 > This is an **example for a specific architecture type**, not a default starting template.
+> **This example must never be used as a starting assumption for new tasks.**
 
 Use this checklist when turning a Pencil fixed-screen homepage into Unity uGUI, **after structural reasoning confirms a shell-based layout**.
 

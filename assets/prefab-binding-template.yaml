@@ -9,7 +9,8 @@ binding_plan:
     
   controllers:
     - owner_role: "inferred"
-      possible_roles: 
+      justification: "chosen because Stage 3 InteractionModelInference identified ..."
+      possible_roles:
         - "global_manager"
         - "state_controller"
         - "view_controller"

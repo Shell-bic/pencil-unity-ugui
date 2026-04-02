@@ -69,7 +69,14 @@ This document is the absolute execution protocol for translating a Pencil design
 - Do NOT use raw Canvas coordinates before defining the structural Parent and Anchor intent.
 - Do NOT use LayoutGroups unless content is dynamically reflowing or strictly repeating.
 **Output:** `HierarchyPlan`, `AnchorPlan`, and `AssetPlan`.
-**Next Stage Condition:** Every important node has a Parent, an Anchor, and a Sprite mapping intent.
+
+**Minimum Verifiable Output (all required):**
+1. For each major node/group: the designated parent owner
+2. Anchor intent for each major region (preset name + stretch/fixed reasoning)
+3. Asset decision per visual node: simple-sprite / sliced-sprite / live text / decorative-only
+4. At least one layout risk or uncertainty explicitly called out
+
+**Next Stage Gate:** Every important node has a Parent, an Anchor, and a Sprite mapping intent. Nodes without all three block progress.
 
 ---
 
@@ -80,4 +87,11 @@ This document is the absolute execution protocol for translating a Pencil design
 **Forbidden Actions:**
 - Do NOT execute automated hierarchy creation if any uncertainties remain in Stage 1-4.
 **Output:** Automated Unity Editor actions (if requested) and a `NeedsManualConfirmation` list.
-**Next Stage Condition:** Implementation accurately reflects the structurally reasoned architecture.
+
+**Minimum Verifiable Output (all required):**
+1. Which parts are safe for automation (and will be executed)
+2. Which parts require manual confirmation (the `NeedsManualConfirmation` list)
+3. Confirmation that implementation matches Stage 1–3 inferred structure (not a post-hoc justification)
+4. Explicit note of any inferred-but-unverified assumptions that remain
+
+**Next Stage Gate:** Implementation accurately reflects the structurally reasoned architecture. Any mismatch between implementation and Stage 1–3 reasoning is a failure.
