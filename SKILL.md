@@ -71,4 +71,31 @@ Any of the following makes the output **invalid** and requires a redo:
 - Use `assets/routing-structure-template.yaml` ONLY if a true routed system was inferred.
 - Review `examples/` for exhibition-specific shell patterns and trigger calibrations.
 
+## Pre-Implementation Validator (最终验证器)
+
+> [!CAUTION]
+> **Before ANY implementation (hierarchy creation, script naming, asset placement), the agent MUST pass ALL of the following checks. If any check fails, the output is INVALID and must be redone.**
+
+### Check 1: Structure-Hierarchy Alignment
+- Does every hierarchy prefix (`Screen_*`, `Shell_*`, `State_*`, `Flow_*`, `Group_*`) match the system type inferred in Stage 1?
+- If `Screen_*` or `Shell_*` appears, was a routed multi-page or persistent-shell architecture explicitly proven?
+- **Fail condition:** Any prefix that was not earned by structural reasoning.
+
+### Check 2: No Unearned Defaults
+- Are `UIScreenController`, `UIRouter`, or `PageController` used anywhere?
+- If yes, was a routed multi-page architecture confirmed in Stage 1?
+- **Fail condition:** Any router/screen controller naming without Stage 1 proof.
+
+### Check 3: Reasoning Substance
+- Does the GlobalStructureSummary contain:
+  - The inferred system type with visual evidence?
+  - At least one alternative type explicitly rejected with reasoning?
+- Does the RegionRoleMap assign semantic roles to all major visual areas?
+- **Fail condition:** Single-sentence or evidence-free structural claims.
+
+### Check 4: No Reverse Engineering
+- Was the hierarchy designed to match the structural reasoning (top-down)?
+- Or was the hierarchy created first and then the reasoning written to justify it (bottom-up)?
+- **Fail condition:** Any sign that structure was reverse-engineered from a pre-decided hierarchy.
+
 If code or Unity mutation is requested, do not stop at explanation. Produce the hierarchy, scripts, or editor actions that are actually needed based on your structural reasoning.

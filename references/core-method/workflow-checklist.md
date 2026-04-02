@@ -13,7 +13,13 @@ This document is the absolute execution protocol for translating a Pencil design
 - Do NOT create any Unity hierarchy objects.
 - Do NOT classify specific nodes (e.g., "This is a button").
 **Output:** A confirmed `GlobalStructureSummary` defining the systemic nature of the UI.
-**Next Stage Condition:** You must be able to explicitly state why the UI is NOT a different type of system (e.g., "Not a routed system because views coexist").
+
+**Minimum Verifiable Output (all required):**
+1. The inferred system type (one of: single-view state machine / multi-step flow / overlay HUD / routed multi-page / mixed — with sub-type if mixed)
+2. At least **one alternative type explicitly rejected** with a reason referencing visual evidence (e.g., "Not a routed system because Frame_A and Frame_B coexist on the same artboard without mutually exclusive switching")
+3. A list of **visual evidence** (node names, layout patterns, or screenshot observations) supporting the inference
+
+**Next Stage Gate:** An output missing any of the 3 items above is incomplete. Do not proceed.
 
 ---
 
@@ -25,7 +31,13 @@ This document is the absolute execution protocol for translating a Pencil design
 - Do NOT decide on Anchors or layout groups.
 - Do NOT name components `Screen_` unless a routed multi-page architecture was explicitly proven in Stage 1.
 **Output:** A `RegionRoleMap` mapping visual areas to semantic roles (e.g., "Persistent Status Bar", "Contextual Action Flyout").
-**Next Stage Condition:** All major visual areas must have an assigned semantic role.
+
+**Minimum Verifiable Output (all required):**
+1. A table or list mapping **every major visual area** to a semantic role
+2. The macro-level Unity format chosen, with explicit link back to Stage 1 system type
+3. If `Shell_*` or `Screen_*` prefixes are proposed, the Stage 1 evidence that justifies them
+
+**Next Stage Gate:** All major visual areas must have an assigned semantic role. Unassigned areas block progress.
 
 ---
 
@@ -38,7 +50,13 @@ This document is the absolute execution protocol for translating a Pencil design
 - Do NOT share components between visually similar elements if their semantic interaction roles differ (e.g., a tab nav button vs a list item).
 - Do NOT default the controller ownership to `UIScreenController` or `UIRouter`.
 **Output:** An `InteractionModelInference` defining the runtime controllers (e.g., `StateGroupController`, `OverlayManager`).
-**Next Stage Condition:** Prefab boundaries and inferred controller roles are explicitly defined.
+
+**Minimum Verifiable Output (all required):**
+1. The inferred controller type(s) with justification linked to interaction patterns (not defaults)
+2. A prefab boundary list: which clusters warrant extraction and why
+3. For each visually similar group: confirmation that interaction semantics were verified (not assumed identical)
+
+**Next Stage Gate:** Prefab boundaries and inferred controller roles are explicitly defined. Generic controller names without justification block progress.
 
 ---
 

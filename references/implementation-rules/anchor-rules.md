@@ -25,9 +25,9 @@ When converting from Pencil, treat the source as a top-left design canvas first.
 Always choose the parent container first.
 
 - `Canvas` is the global root
-- `Screen_*` is the per-page root
-- `Region_*` is a structural grouping
-- child nodes should usually anchor against a `Region_*` or `Panel_*`, not directly against `Canvas`
+- `Screen_*` is the per-page root (**only in confirmed routed multi-page architectures**)
+- `Region_*` / `Panel_*` / `Group_*` are structural groupings (use the prefix matching your inferred system type)
+- child nodes should usually anchor against a structural group, not directly against `Canvas`
 
 If many children are anchored directly to the root, the hierarchy is probably too flat.
 
@@ -47,7 +47,7 @@ Use for:
 Prefer this for:
 
 - `Bg_Full`
-- `Screen_*`
+- Root wrappers (`Screen_*` if routed, `State_*` / `Region_*` otherwise)
 - `Panel_Content` when it is bounded by left/right/top/bottom offsets
 
 ### `TopLeft`

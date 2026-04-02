@@ -1,5 +1,9 @@
 # Unity UI Engineering Plan
 
+> **Role:** This template is an *internal planning scratch pad* used during Stages 1-4 to organize intermediate reasoning. It is NOT the final output format.
+>
+> **Final output** must follow `references/core-method/output-contract.md`. When this template and the Output Contract conflict on structure or naming, the Output Contract is authoritative.
+
 ## 1. System Inference
 - Structure type (inferred, not labeled)
 - Reasoning

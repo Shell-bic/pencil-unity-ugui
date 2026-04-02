@@ -1,16 +1,28 @@
 # Homepage Layout Checklist
 
-Use this checklist when turning a Pencil fixed-screen homepage into Unity uGUI.
+> [!CAUTION]
+> **PREREQUISITE:** This checklist is only valid when:
+> 1. Stage 1 (Global System Analysis) has been completed
+> 2. Stage 2 (Engineering Architecture Planning) confirmed a **persistent-shell architecture** with shared structural regions
+> 3. The RegionRoleMap explicitly identifies persistent regions that survive across views
+>
+> If these prerequisites are not met, **do not use this checklist**. Use the general workflow-checklist.md pipeline instead.
+>
+> This is an **example for a specific architecture type**, not a default starting template.
 
-## 1. Start with shells
+Use this checklist when turning a Pencil fixed-screen homepage into Unity uGUI, **after structural reasoning confirms a shell-based layout**.
 
-Create the shell regions first:
+## 1. Start with structural regions
 
-- `Shell_Background`
-- `Shell_Header`
-- `Shell_LeftNav`
-- `Shell_ContentPanel`
-- `Shell_RightRail`
+Create the structural regions based on your Stage 2 RegionRoleMap:
+
+- `Region_Background` (or `Shell_Background` if persistent-shell was confirmed)
+- `Region_Header`
+- `Region_LeftNav`
+- `Region_ContentPanel`
+- `Region_RightRail`
+
+> **Note:** Use `Shell_*` prefix only if Stage 2 confirmed these regions persist across multiple views. For single-view systems, prefer `Region_*` or `Group_*`.
 
 If the hierarchy does not have these regions, do not start placing detailed controls yet.
 
@@ -91,7 +103,7 @@ Only bind explicit targets.
 
 If the page feels messy, inspect in this order:
 
-- missing shell region
+- missing structural region (shell or region, per your Stage 2 decision)
 - wrong parent
 - wrong anchor
 - wrong pivot
@@ -103,7 +115,7 @@ This catches most layout problems faster than coordinate tuning.
 
 Confirm:
 
-- shell grouping is visible in the hierarchy
+- structural region grouping is visible in the hierarchy
 - edge-bound nodes are not centered by mistake
 - repeated controls read as the same family
 - live text is still editable

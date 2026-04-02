@@ -1,5 +1,9 @@
 # Output Contract
 
+> **This is the authoritative output structure.** When the Output Contract and `engineering-plan-template.md` conflict, this document wins.
+>
+> **Relationship to engineering-plan-template.md:** The template is an *internal planning scratch pad* for the agent to organize intermediate reasoning. The Output Contract defines the *final deliverable shape* presented to the user. The template feeds into the contract, not the other way around.
+
 Unless the user asks for a specific abbreviated output, your response must follow this structured order to guarantee reasoning precedes hierarchy placement.
 
 ## 1. FitAssessment & System Summary
