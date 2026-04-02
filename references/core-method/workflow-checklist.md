@@ -1,46 +1,65 @@
-# Workflow Checklist
+# Workflow Checklist (Strict Protocol)
 
-Use this file to guide the systematic UI-to-engineering conversion from Pencil design to Unity uGUI.
+This document is the absolute execution protocol for translating a Pencil design into Unity uGUI. 
+**Agent MUST execute these 5 stages sequentially. Skipping stages is an automatic failure.**
 
-> **CRITICAL STAGE LOCK**: Do not proceed to hierarchy planning before:
-> - Global structure is defined
-> - Region roles are identified
-> - Interaction model is inferred
-> If hierarchy or anchors are defined before structure inference, the result is invalid.
+---
 
-## Contents
-- Stage 1: Confirm target
-- Stage 2: Read the design
-- Stage 3: Global System Analysis
-- Stage 4: Engineering Architecture Planning
-- Stage 5: Reusable Component & Interaction Extraction
-- Stage 6: Layout / Asset Placement Planning
-- Stage 7: Implementation
+## Stage 1: Global System Analysis
+**Input:** The raw Pencil `.pen` file and any provided screenshots.
+**Questions to Answer:**
+- Is the entire design a single-view state machine, a multi-step sequence, an overlay HUD, or a routed multi-page application?
+**Forbidden Actions:**
+- Do NOT create any Unity hierarchy objects.
+- Do NOT classify specific nodes (e.g., "This is a button").
+**Output:** A confirmed `GlobalStructureSummary` defining the systemic nature of the UI.
+**Next Stage Condition:** You must be able to explicitly state why the UI is NOT a different type of system (e.g., "Not a routed system because views coexist").
 
-## Stage 1: Confirm target
-Confirm the technology is `uGUI`. Confirm if the user wants purely architectural planning, or editor implementation.
+---
 
-## Stage 2: Read the design
-Inspect top-level frames, bounds, and repeated structures using Pencil MCP. 
+## Stage 2: Engineering Architecture Planning
+**Input:** The `GlobalStructureSummary` from Stage 1.
+**Questions to Answer:**
+- Based on the system type, what is the macro-level Unity format? (e.g., Persistent Shell + Swapping Panels, or 3D World Canvas HUD).
+**Forbidden Actions:**
+- Do NOT decide on Anchors or layout groups.
+- Do NOT name components `Screen_` unless a routed multi-page architecture was explicitly proven in Stage 1.
+**Output:** A `RegionRoleMap` mapping visual areas to semantic roles (e.g., "Persistent Status Bar", "Contextual Action Flyout").
+**Next Stage Condition:** All major visual areas must have an assigned semantic role.
 
-## Stage 3: Global System Analysis
-Before deciding on any hierarchy or code structure, you MUST deduce the systemic nature of the design.
-Questions to ask:
-- Is this a single-view state machine?
-- Is this a multi-step continuous workflow wizard?
-- Is this a HUD overlay over 3D content?
-- Is this a true routed multi-page application?
+---
 
-## Stage 4: Engineering Architecture Planning
-Based on the Global System Analysis, determine the structural patterns used. Do not assume "shell-screen". Exhibit why certain regions are persistent or switched.
+## Stage 3: Reusable Component & Interaction Extraction
+**Input:** The `RegionRoleMap`.
+**Questions to Answer:**
+- How does the user interact with the system? (e.g., Toggling a filter vs navigating to a new route).
+- Which clusters of UI are structurally repeated and warrant Prefabs?
+**Forbidden Actions:**
+- Do NOT share components between visually similar elements if their semantic interaction roles differ (e.g., a tab nav button vs a list item).
+- Do NOT default the controller ownership to `UIScreenController` or `UIRouter`.
+**Output:** An `InteractionModelInference` defining the runtime controllers (e.g., `StateGroupController`, `OverlayManager`).
+**Next Stage Condition:** Prefab boundaries and inferred controller roles are explicitly defined.
 
-## Stage 5: Reusable Component & Interaction Extraction
-Map the structural regions not by their Unity component types, but by their semantic roles.
-Identify interactive components and flow directors. 
-**PROHIBITION**: In completing Component Extraction, do not directly map identical visual elements to the same runtime controllers until interaction roles are proven identical.
+---
 
-## Stage 6: Layout / Asset Placement Planning
-Now classify the nodes structurally based on the reasoning from prior stages. Determine Anchor strategy and fixed-placement vs LayoutGroup rules.
+## Stage 4: Layout & Asset Placement Planning
+**Input:** The defined components and architecture from Stages 1-3.
+**Questions to Answer:**
+- What are the logical parent-child relationships?
+- What is the Anchor alignment strategy to fulfill the Architecture Plan?
+**Forbidden Actions:**
+- Do NOT use raw Canvas coordinates before defining the structural Parent and Anchor intent.
+- Do NOT use LayoutGroups unless content is dynamically reflowing or strictly repeating.
+**Output:** `HierarchyPlan`, `AnchorPlan`, and `AssetPlan`.
+**Next Stage Condition:** Every important node has a Parent, an Anchor, and a Sprite mapping intent.
 
-## Stage 7: Implementation
-Finally, create or describe the hierarchy. Avoid boilerplate forced templates.
+---
+
+## Stage 5: Implementation & Refinement
+**Input:** The fully finalized plans from Stages 1-4.
+**Questions to Answer:**
+- Which steps should be executed via Unity Skills automation vs left for manual tuning?
+**Forbidden Actions:**
+- Do NOT execute automated hierarchy creation if any uncertainties remain in Stage 1-4.
+**Output:** Automated Unity Editor actions (if requested) and a `NeedsManualConfirmation` list.
+**Next Stage Condition:** Implementation accurately reflects the structurally reasoned architecture.
