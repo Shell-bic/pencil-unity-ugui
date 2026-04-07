@@ -32,6 +32,13 @@
 - Reuse scope
 - **Required:** Interaction semantics verified for each shared component
 
+## 5.5 Page Truth & Shared Component Facts
+- Referenced page -> active primary item
+- Referenced page -> secondary navigation shown/hidden
+- Referenced page -> selected secondary item
+- Shared component family -> exact current Pencil geometry
+- **Required:** Shared shell sizing must come from current Pencil facts, not historical Unity screenshots
+
 ## 6. Layout & Asset Placement Plan
 - Parent ownership
 - Anchor strategy

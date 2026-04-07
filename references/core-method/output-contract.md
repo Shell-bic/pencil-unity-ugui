@@ -21,20 +21,38 @@ Example: "Navigation Matrix", "Hardware Control Panel", "Data Detail Flyout".
 ## 4. InteractionModelInference
 Describe how user inputs affect the state of the application. Does clicking a button swap a local panel, push a new route history state, or trigger a global event? Define what kind of controller is logically required to manage this.
 
-## 5. HierarchyPlan
+## 5. PageTruthMap
+When the task involves multiple pages, variants, or shell-state questions, explicitly map each referenced Pencil page to:
+- active primary item
+- whether secondary navigation is shown
+- selected secondary item, if any
+- shell regions shown or hidden
+- displayed right-side content state
+
+## 6. SharedComponentFactTable
+When the task touches shared shell regions, record the exact current Pencil facts for each relevant component family such as:
+- left navigation
+- playback bar
+- top command buttons
+- language toggles
+- persistent auxiliary rails
+
+Include geometry and any state-specific visibility facts.
+
+## 7. HierarchyPlan
 Only after the above reasoning should you list the intended Unity tree structure.
 Ensure prefixes (`Group_`, `State_`, `Panel_`, `Flow_`) align with your deduced structure.
 
-## 6. AnchorPlan
+## 8. AnchorPlan
 For major structural parents, list their anchor intent and stretch logic. Keep concise.
 
-## 7. AssetPlan
+## 9. AssetPlan
 State which nodes demand `simple-sprite`, `sliced-sprite`, or `hit-area` mappings.
 
-## 8. Component & PrefabBinding Plan
+## 10. Component & PrefabBinding Plan
 For important nodes, state the Unity component stack and prefab boundaries.
-Define where the behavior logic resides (e.g., an Inferred Controller) based on Stage 4. 
+Define where the behavior logic resides (e.g., an inferred controller) based on the reasoning and fact lock above. 
 
-## 9. Implementation & Validation Notes
+## 11. Implementation & Validation Notes
 Notes on what should be mutated via Unity Skills vs manual tuning.
 Explicitly state: "Which areas or decisions still require manual human confirmation."

@@ -1,7 +1,7 @@
 # Workflow Checklist (Strict Protocol)
 
 This document is the absolute execution protocol for translating a Pencil design into Unity uGUI. 
-**Agent MUST execute these 5 stages sequentially. Skipping stages is an automatic failure.**
+**Agent MUST execute these 6 stages sequentially. Skipping stages is an automatic failure.**
 
 ---
 
@@ -60,8 +60,27 @@ This document is the absolute execution protocol for translating a Pencil design
 
 ---
 
-## Stage 4: Layout & Asset Placement Planning
-**Input:** The defined components and architecture from Stages 1-3.
+## Stage 4: Page Truth & Shared Component Fact Lock
+**Input:** The inferred pages, regions, and interactions from Stages 1-3.
+**Questions to Answer:**
+- Which referenced pages are landing states, expanded child states, or local-content variants?
+- Which shared shell component families need exact geometry from the current `.pen`?
+**Forbidden Actions:**
+- Do NOT size shared shell regions from historical Unity screenshots if the current `.pen` is available.
+- Do NOT infer left-side navigation children from right-side content chips or local action areas.
+**Output:** A `PageTruthMap` and a `SharedComponentFactTable`.
+
+**Minimum Verifiable Output (all required):**
+1. For every referenced page: active primary item, whether secondary navigation is shown, selected secondary item if any, and shell visibility state
+2. For every shared component family involved in the task: exact current Pencil geometry and any state-specific visibility notes
+3. At least one explicit statement of what was *not* inferred from screenshots or prior Unity output
+
+**Next Stage Gate:** If page-state mapping or shared shell sizing is involved, both artifacts are mandatory. Missing either blocks progress.
+
+---
+
+## Stage 5: Layout & Asset Placement Planning
+**Input:** The defined components, architecture, and fact locks from Stages 1-4.
 **Questions to Answer:**
 - What are the logical parent-child relationships?
 - What is the Anchor alignment strategy to fulfill the Architecture Plan?
@@ -80,12 +99,12 @@ This document is the absolute execution protocol for translating a Pencil design
 
 ---
 
-## Stage 5: Implementation & Refinement
-**Input:** The fully finalized plans from Stages 1-4.
+## Stage 6: Implementation & Refinement
+**Input:** The fully finalized plans from Stages 1-5.
 **Questions to Answer:**
 - Which steps should be executed via Unity Skills automation vs left for manual tuning?
 **Forbidden Actions:**
-- Do NOT execute automated hierarchy creation if any uncertainties remain in Stage 1-4.
+- Do NOT execute automated hierarchy creation if any uncertainties remain in Stage 1-5.
 **Output:** Automated Unity Editor actions (if requested) and a `NeedsManualConfirmation` list.
 
 **Minimum Verifiable Output (all required):**
